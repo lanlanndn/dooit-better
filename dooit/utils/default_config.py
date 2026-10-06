@@ -82,6 +82,14 @@ def todo_status_formatter(status: str, _: Todo, api: DooitAPI):
     return Text(text, style=Style(color=color, bold=True))
 
 
+def todo_description_formatter(description: str, model: Todo):
+    # Strike through completed tasks (disabled via `api.formatter.todos.description.disable("strike_completed")`)
+    if model.pending:
+        return None
+
+    return Text(description, style="strike")
+
+
 def todo_due_formatter(due, _):
     if due is None:
         return ""
@@ -167,6 +175,7 @@ def layout_setup(api: DooitAPI, _):
 @subscribe(Startup)
 def formatter_setup(api: DooitAPI, _):
     api.formatter.todos.status.add(todo_status_formatter)
+    api.formatter.todos.description.add(todo_description_formatter, id="strike_completed")
     api.formatter.todos.due.add(todo_due_formatter)
     api.formatter.todos.urgency.add(todo_urgency_formatter)
     api.formatter.todos.recurrence.add(todo_recurrence_formatter)

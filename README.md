@@ -11,6 +11,22 @@
 
 -----------------------------
 
+> [!NOTE]
+> **This is a fork** — [dooit-better](https://github.com/lanlanndn/dooit-better) — of [dooit](https://github.com/dooit-org/dooit) (MIT).
+> It adds one feature on top of v3.3.4: **completed tasks are rendered with a strikethrough**, so they stand out from pending ones.
+> To opt out, disable the formatter in your `config.py`:
+>
+> ```python
+> from dooit.ui.api import DooitAPI, subscribe
+> from dooit.ui.api.events import Startup
+>
+> @subscribe(Startup)
+> def _disable_strike(api: DooitAPI, _):
+>     api.formatter.todos.description.disable("strike_completed")
+> ```
+
+-----------------------------
+
 For installation and configuration, check out [the wiki](https://dooit-org.github.io/dooit/)
 
 # Features 🌟
